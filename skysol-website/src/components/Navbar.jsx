@@ -1,11 +1,25 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import './styles/Navbar.css'
 
 const Navbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Prevenir scroll del body cuando el menú está abierto
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+
+    // Cleanup cuando el componente se desmonta
+    return () => {
+      document.body.classList.remove('menu-open');
+    };
+  }, [isMenuOpen]);
 
   const handleServicesClick = (e) => {
     if (location.pathname === '/') {
@@ -16,11 +30,11 @@ const Navbar = () => {
     } else {
       window.location.href = '/#services';
     }
-    setIsMenuOpen(false); // Cerrar menú en móvil
+    setIsMenuOpen(false);
   };
 
   const handleLinkClick = () => {
-    setIsMenuOpen(false); // Cerrar menú al hacer clic en cualquier enlace
+    setIsMenuOpen(false);
   };
 
   const toggleMenu = () => {
@@ -47,6 +61,17 @@ const Navbar = () => {
 
         {/* Menú */}
         <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
+          {/* Botón de cerrar dentro del menú */}
+          <li className="navbar-close-container">
+            <button 
+              className="navbar-close"
+              onClick={toggleMenu}
+              aria-label="Cerrar menú"
+            >
+              <FaTimes />
+            </button>
+          </li>
+
           <li className="navbar-item">
             <Link 
               to="/" 
