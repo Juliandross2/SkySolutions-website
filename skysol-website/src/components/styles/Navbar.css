@@ -127,6 +127,11 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  /* PREVENIR SCROLL HORIZONTAL */
+  body {
+    overflow-x: hidden;
+  }
+
   .navbar-container {
     padding: 0 1rem;
   }
@@ -140,12 +145,13 @@
     display: block;
   }
 
-  /* Menú móvil - CORREGIDO */
+  /* Menú móvil - ARREGLADO PARA EVITAR SCROLL */
   .navbar-menu {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 280px;
+    right: -100%; /* Inicialmente fuera de pantalla */
+    width: min(280px, 80vw); /* Limitar ancho para pantallas pequeñas */
+    max-width: 280px; /* Ancho máximo */
     height: 100vh;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     flex-direction: column;
@@ -155,19 +161,21 @@
     gap: 0;
     transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
-    z-index: 1002; /* Aumentar z-index */
-    /* Remover backdrop-filter aquí */
+    z-index: 1002;
+    overflow-y: auto; /* Permitir scroll vertical si es necesario */
+    overflow-x: hidden; /* Evitar scroll horizontal */
   }
 
   .navbar-menu.active {
-    right: 0;
+    right: 0; /* Mostrar desde el borde derecho */
   }
 
   .navbar-item {
     width: 100%;
     border-bottom: 1px solid rgba(226, 232, 240, 0.1);
-    z-index: 1003; /* Asegurar que los items estén encima */
+    z-index: 1003;
     position: relative;
+    flex-shrink: 0; /* Evitar que se compriman */
   }
 
   .navbar-link {
@@ -176,7 +184,8 @@
     border-radius: 0;
     transition: all 0.3s ease;
     position: relative;
-    z-index: 1004; /* Asegurar que los links sean clickeables */
+    z-index: 1004;
+    white-space: nowrap; /* Evitar que el texto se rompa */
   }
 
   .navbar-link:hover {
@@ -189,7 +198,7 @@
     display: none;
   }
 
-  /* Overlay para cerrar menú - CORREGIDO */
+  /* Overlay para cerrar menú */
   .navbar-overlay {
     display: block;
     position: fixed;
@@ -198,8 +207,8 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1000; /* Menor que el menú */
-    backdrop-filter: blur(2px); /* Solo el overlay tiene blur */
+    z-index: 1000;
+    backdrop-filter: blur(2px);
   }
 }
 
@@ -212,17 +221,184 @@
     font-size: 1.1rem;
   }
 
+  /* Para pantallas muy pequeñas, usar toda la pantalla */
   .navbar-menu {
     width: 100vw;
-    right: -100vw;
+    right: -100vw; /* Inicialmente fuera de pantalla */
+    max-width: none; /* Sin límite de ancho máximo */
   }
 
   .navbar-menu.active {
     right: 0;
   }
+
+  .navbar-link {
+    padding: 1.2rem 1.5rem; /* Más padding en pantallas pequeñas */
+    font-size: 1rem;
+  }
+}
+@media (max-width: 768px) {
+  /* PREVENIR SCROLL HORIZONTAL */
+  body {
+    overflow-x: hidden;
+  }
+
+  .navbar-container {
+    padding: 0 1rem;
+  }
+
+  .navbar-brand h2 {
+    font-size: 1.3rem;
+  }
+
+  /* Mostrar botón hamburguesa */
+  .navbar-toggle {
+    display: block;
+  }
+
+  /* Menú móvil - ARREGLADO PARA EVITAR SCROLL */
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(280px, 80vw);
+    max-width: 280px;
+    height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 1rem 0 2rem; /* Reducir padding top para el botón cerrar */
+    gap: 0;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+    z-index: 1002;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .navbar-menu.active {
+    right: 0;
+  }
+
+  /* Botón de cerrar dentro del menú */
+  .navbar-close-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem 0.5rem;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.1);
+    margin-bottom: 1rem;
+  }
+
+  .navbar-close {
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar-close:hover {
+    color: #06b6d4;
+    background: rgba(6, 182, 212, 0.1);
+    transform: rotate(90deg);
+  }
+
+  .navbar-item {
+    width: 100%;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.1);
+    z-index: 1003;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .navbar-link {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1004;
+    white-space: nowrap;
+  }
+
+  .navbar-link:hover {
+    background: rgba(6, 182, 212, 0.1);
+    transform: translateX(10px);
+    padding-left: 2.5rem;
+  }
+
+  .navbar-link::after {
+    display: none;
+  }
+
+  /* Overlay para cerrar menú */
+  .navbar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+  }
 }
 
-/* Animaciones adicionales - CORREGIDAS */
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 0.5rem;
+  }
+
+  .navbar-brand h2 {
+    font-size: 1.1rem;
+  }
+
+  /* Para pantallas muy pequeñas, usar toda la pantalla */
+  .navbar-menu {
+    width: 100vw;
+    right: -100vw;
+    max-width: none;
+  }
+
+  .navbar-menu.active {
+    right: 0;
+  }
+
+  .navbar-link {
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .navbar-close-container {
+    padding: 1rem 1rem 0.5rem;
+  }
+}
+
+/* PREVENIR SCROLL HORIZONTAL GLOBAL CUANDO EL MENÚ ESTÁ ABIERTO */
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* Ocultar el botón de cerrar en desktop */
+@media (min-width: 769px) {
+  .navbar-close-container {
+    display: none;
+  }
+}
+
+/* Animaciones adicionales */
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
@@ -234,21 +410,25 @@
   }
 }
 
-.navbar-menu.active .navbar-item {
-  animation: slideInRight 0.3s ease-out forwards;
-  opacity: 0; /* Inicialmente invisible */
+.navbar-menu.active .navbar-close-container {
+  animation: slideInRight 0.2s ease-out forwards;
 }
 
-.navbar-menu.active .navbar-item:nth-child(1) { 
+.navbar-menu.active .navbar-item {
+  animation: slideInRight 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+.navbar-menu.active .navbar-item:nth-child(2) { /* Ajustar índices por el botón cerrar */
   animation-delay: 0.1s; 
 }
-.navbar-menu.active .navbar-item:nth-child(2) { 
+.navbar-menu.active .navbar-item:nth-child(3) { 
   animation-delay: 0.2s; 
 }
-.navbar-menu.active .navbar-item:nth-child(3) { 
+.navbar-menu.active .navbar-item:nth-child(4) { 
   animation-delay: 0.3s; 
 }
-.navbar-menu.active .navbar-item:nth-child(4) { 
+.navbar-menu.active .navbar-item:nth-child(5) { 
   animation-delay: 0.4s; 
 }
 
@@ -262,7 +442,7 @@
   bottom: 0;
   background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.05), transparent);
   animation: shimmer 3s ease-in-out infinite;
-  pointer-events: none; /* Evitar interferencia con clicks */
+  pointer-events: none;
 }
 
 @keyframes shimmer {
