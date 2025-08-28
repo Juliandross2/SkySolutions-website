@@ -175,8 +175,7 @@ const Contact = () => {
                   <FaEnvelope />
                 </div>
                 <h3>Email</h3>
-                <p>info@skysolutions.com</p>
-                <p>support@skysolutions.com</p>
+                <p>julianalejom@unicauca.edu.co</p>
               </div>
 
               <div className="contact-item" data-aos="fade-right" data-aos-delay="200">
@@ -184,8 +183,7 @@ const Contact = () => {
                   <FaPhone />
                 </div>
                 <h3>Teléfono</h3>
-                <p>+57 (1) 234-5678</p>
-                <p>+57 (1) 876-5432</p>
+                <p>+57 3216157025</p>
               </div>
 
               <div className="contact-item" data-aos="fade-right" data-aos-delay="300">
@@ -193,8 +191,8 @@ const Contact = () => {
                   <FaMapMarkerAlt />
                 </div>
                 <h3>Dirección</h3>
-                <p>Calle 123 #45-67</p>
-                <p>Bogotá, Colombia</p>
+                <p>Pomona</p>
+                <p>Popayán, Colombia</p>
               </div>
 
               <div className="contact-item" data-aos="fade-right" data-aos-delay="400">
